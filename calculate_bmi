@@ -1,0 +1,78 @@
+// ------------------------------------------------------------+
+// bmi030.cpp
+// ------------------------------------------------------------+
+#include <iostream>                    // systems libraries
+#include <iomanip>
+#include <cstdio>
+
+using    namespace std;
+
+void     GetInput(int& ,int&, int&);         // procedure prototype
+double   CalcBmi(int, int);                  // function prototype
+double   CalcHeight(int, int);
+
+int      main      (void)          // main header
+{
+         /* local data space */
+         int       feet;
+         int       inches;
+         int       weight;
+         int       height;
+
+         double    bmi;            // body mass index
+         char      response;       // client response flag
+
+         /* begin procedural code */
+         cout << "This program calculates body mass index.\n\n";
+         do
+           {
+           /* set the output to one number after the decimal point */
+           cout << setprecision(1) << fixed << showpoint;
+           
+           /* get the input data from the keyboard */
+           GetInput(feet, inches, weight);      // call the procedure
+
+           /* calculate the bmi*/
+           height = CalcHeight(feet, inches);
+           bmi = CalcBmi(height, weight);      // note: function call
+
+           /* diplay the output */
+          cout << "\nThe body mass index is: " <<  bmi << "\n";
+
+           /* ask the user if he/she wants to c1ontinue */
+           do
+           {
+             cout << "\nCalculate another (Y or N): ";
+             cin >> response;
+           } while (toupper(response) != 'Y' && toupper(response) != 'N');
+         } while (toupper(response) == 'Y');
+         cout << endl;
+         return(0);                    // goback to o/s
+}
+void     GetInput (int& p_feet, int& p_inches, int& p_weight) // header
+{
+         cout << "Enter the number of feet: ";
+         cin >> p_feet;
+         cout << "Enter the number of inches: ";
+         cin >> p_inches;
+         cout << "Enter the number of pounds: ";
+         cin >> p_weight;
+         return;
+}
+           
+double   CalcHeight(int p_feet, int p_inches)       // function header
+{
+         double v_inches;
+
+         v_inches = (p_feet * 12.0) + p_inches;
+         return (v_inches);
+}
+             
+double   CalcBmi(int p_height, int p_weight)        // function header
+{
+         double  v_bmi;
+         
+         v_bmi = (p_weight * 703.0) / (p_height * p_height);
+         return (v_bmi);
+}
+
